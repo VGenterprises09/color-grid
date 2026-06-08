@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Flood</title>
+  <style>
+    :root {
+      --bg: #1e1e2e;
+      --lavender: #cba6f7;
+      --blue: #89b4fa;
+      --green: #a6e3a1;
+      --yellow: #f9e2af;
+      --peach: #f38ba8;
+      --orange: #fab387;
+      --text: #cdd6f4;
+      --surface: #313244;
+      --surface2: #45475a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', Helvetica, Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px 16px 48px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      background: linear-gradient(90deg, var(--lavender), var(--orange), var(--peach));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .diff-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .diff-btn {
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: 2px solid var(--surface2);
+      background: var(--surface);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+
+    .diff-btn:hover { border-color: var(--lavender); }
+
+    .diff-btn.active {
+      border-color: var(--lavender);
+      background: var(--lavender);
+      color: var(--bg);
+    }
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .move-counter { font-size: 0.92rem; font-weight: 600; }
+
+    .mode-badge {
+      padding: 3px 12px;
+      border-radius: 20px;
+      background: var(--surface);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--lavender);
+    }
+
+    canvas {
+      display: block;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      transition: opacity 0.2s;
+    }
+
+    .swatches {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .swatch {
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      border: 3px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s cubic-bezier(0.34,1.56,0.64,1), border-color 0.1s;
+      outline: none;
+    }
+
+    .swatch.active {
+      border-color: #ffffff;
+      transform: scale(1.1);
+    }
+
+    .message {
+      font-size: 1.05rem;
+      font-weight: 700;
+      min-height: 1.6rem;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+
+    .message.win  { color: var(--green); }
+    .message.loss { color: var(--peach); }
+
+    .new-game-btn {
+      padding: 10px 28px;
+      border-radius: 10px;
+      border: none;
+      background: var(--lavender);
+      color: var(--bg);
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+
+    .new-game-btn:hover { opacity: 0.87; transform: scale(1.03); }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0) }
+      15%     { transform: translateX(-8px) }
+      30%     { transform: translateX(8px) }
+      45%     { transform: translateX(-6px) }
+      60%     { transform: translateX(6px) }
+      75%     { transform: translateX(-3px) }
+      90%     { transform: translateX(3px) }
+    }
+    .canvas-shake { animation: shake 0.4s ease-in-out; }
+
+    @keyframes tension-pulse {
+      0%,100% { transform: scale(1) }
+      50%     { transform: scale(1.18) }
+    }
+    .tension-pulse { animation: tension-pulse 0.25s ease-in-out; }
+  </style>
+</head>
+<body>
+
+<h1>Color Flood</h1>
+
+<div class="diff-row">
+  <button class="diff-btn" data-diff="easy">Easy (28)</button>
+  <button class="diff-btn active" data-diff="medium">Medium (25)</button>
+  <button class="diff-btn" data-diff="hard">Hard (24)</button>
+</div>
+
+<div class="info-row">
+  <span class="move-counter" id="moveCounter">Moves: 0 / 25</span>
+  <span class="mode-badge" id="modeBadge">Medium</span>
+</div>
+
+<canvas id="canvas"></canvas>
+
+<div class="swatches" id="swatches"></div>
+
+<div class="message" id="message"></div>
+
+<button class="new-game-btn" id="newGameBtn">New Game</button>
+
+<script>
+  const COLORS = ['#cba6f7','#89b4fa','#a6e3a1','#f9e2af','#f38ba8','#fab387'];
+  const GRID   = 14;
+  const CELL   = 40;
+  const GAP    = 2;
+  const RADIUS = 5;
+  const SIZE   = GRID * CELL + (GRID - 1) * GAP;
+
+  const DIFFS = {
+    easy:   { moves: 28, label: 'Easy'   },
+    medium: { moves: 25, label: 'Medium' },
+    hard:   { moves: 24, label: 'Hard'   },
+  };
+
+  let grid, flooded, moves, maxMoves, diff = 'medium', gameOver;
+  let animFrame = null, winAnimFrame = null;
+
+  const canvas  = document.getElementById('canvas');
+  const ctx     = canvas.getContext('2d');
+  canvas.width  = SIZE;
+  canvas.height = SIZE;
+
+  const elCounter  = document.getElementById('moveCounter');
+  const elBadge    = document.getElementById('modeBadge');
+  const elMsg      = document.getElementById('message');
+  const elSwatches = document.getElementById('swatches');
+
+  COLORS.forEach(color => {
+    const s = document.createElement('button');
+    s.className = 'swatch';
+    s.style.background = color;
+    s.addEventListener('click', () => pickColor(color));
+    elSwatches.appendChild(s);
+  });
+
+  function encode(r, c) { return r * GRID + c; }
+  function randColor() { return COLORS[Math.floor(Math.random() * COLORS.length)]; }
+
+  function buildGrid() {
+    const g = [];
+    for (let r = 0; r < GRID; r++) {
+      g.push([]);
+      for (let c = 0; c < GRID; c++) {
+        let color;
+        if (diff === 'easy') {
+          if (Math.random() < 0.30 && (r > 0 || c > 0)) {
+            if (r > 0 && c > 0) color = Math.random() < 0.5 ? g[r-1][c] : g[r][c-1];
+            else if (r > 0)     color = g[r-1][c];
+            else                color = g[r][c-1];
+          } else { color = randColor(); }
+        } else if (diff === 'medium') {
+          color = (r > 0 && Math.random() < 0.20) ? g[r-1][c] : randColor();
+        } else {
+          color = randColor();
+        }
+        g[r].push(color);
+      }
+    }
+    return g;
+  }
+
+  function computeFlooded() {
+    const origin  = grid[0][0];
+    const visited = new Set();
+    const stack   = [encode(0, 0)];
+    visited.add(encode(0, 0));
+    while (stack.length) {
+      const id = stack.pop();
+      const r  = (id / GRID) | 0;
+      const c  = id % GRID;
+      for (const [nr, nc] of [[r-1,c],[r+1,c],[r,c-1],[r,c+1]]) {
+        if (nr >= 0 && nr < GRID && nc >= 0 && nc < GRID) {
+          const nid = encode(nr, nc);
+          if (!visited.has(nid) && grid[nr][nc] === origin) {
+            visited.add(nid); stack.push(nid);
+          }
+        }
+      }
+    }
+    return visited;
+  }
+
+  function applyColor(newColor) {
+    for (const id of flooded) grid[(id / GRID) | 0][id % GRID] = newColor;
+    flooded = computeFlooded();
+  }
+
+  function roundRect(x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y);
+    ctx.arcTo(x + w, y,     x + w, y + r,     r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+    ctx.lineTo(x + r, y + h);
+    ctx.arcTo(x,     y + h, x,     y + h - r,  r);
+    ctx.lineTo(x, y + r);
+    ctx.arcTo(x,     y,     x + r, y,           r);
+    ctx.closePath();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, SIZE, SIZE);
+    for (let r = 0; r < GRID; r++) {
+      for (let c = 0; c < GRID; c++) {
+        const x = c * (CELL + GAP), y = r * (CELL + GAP), id = encode(r, c);
+        ctx.fillStyle = grid[r][c];
+        roundRect(x, y, CELL, CELL, RADIUS); ctx.fill();
+        if (flooded.has(id)) {
+          ctx.save(); roundRect(x, y, CELL, CELL, RADIUS); ctx.clip();
+          ctx.strokeStyle = 'rgba(255,255,255,0.30)'; ctx.lineWidth = 4;
+          roundRect(x + 2, y + 2, CELL - 4, CELL - 4, Math.max(0, RADIUS - 1)); ctx.stroke();
+          ctx.restore();
+        }
+      }
+    }
+  }
+
+  // Newly captured cells fade in staggered by Manhattan distance from [0,0]
+  function animateFlood(prevGrid, newCells, onComplete) {
+    if (newCells.length === 0) { draw(); if (onComplete) onComplete(); return; }
+    const newSet = new Set(newCells);
+    const STAGGER = 20, FADE = 150;
+    const dists = {};
+    let maxDist = 0;
+    for (const id of newCells) {
+      const d = ((id / GRID) | 0) + (id % GRID);
+      dists[id] = d;
+      if (d > maxDist) maxDist = d;
+    }
+    const total = maxDist * STAGGER + FADE;
+    const start = performance.now();
+
+    function frame(now) {
+      const t = now - start;
+      ctx.clearRect(0, 0, SIZE, SIZE);
+      for (let r = 0; r < GRID; r++) {
+        for (let c = 0; c < GRID; c++) {
+          const id = encode(r, c);
+          const x = c * (CELL + GAP), y = r * (CELL + GAP);
+          if (newSet.has(id)) {
+            const prog = Math.min(1, Math.max(0, (t - dists[id] * STAGGER) / FADE));
+            ctx.fillStyle = prevGrid[r][c];
+            roundRect(x, y, CELL, CELL, RADIUS); ctx.fill();
+            if (prog > 0) {
+              ctx.save(); ctx.globalAlpha = prog;
+              ctx.fillStyle = grid[r][c];
+              roundRect(x, y, CELL, CELL, RADIUS); ctx.fill();
+              ctx.restore();
+            }
+          } else {
+            ctx.fillStyle = grid[r][c];
+            roundRect(x, y, CELL, CELL, RADIUS); ctx.fill();
+            if (flooded.has(id)) {
+              ctx.save(); roundRect(x, y, CELL, CELL, RADIUS); ctx.clip();
+              ctx.strokeStyle = 'rgba(255,255,255,0.30)'; ctx.lineWidth = 4;
+              roundRect(x + 2, y + 2, CELL - 4, CELL - 4, Math.max(0, RADIUS - 1)); ctx.stroke();
+              ctx.restore();
+            }
+          }
+        }
+      }
+      if (t < total) {
+        animFrame = requestAnimationFrame(frame);
+      } else {
+        draw();
+        if (onComplete) onComplete();
+      }
+    }
+    animFrame = requestAnimationFrame(frame);
+  }
+
+  // Rainbow shimmer cycling palette colors diagonally
+  function runWinShimmer() {
+    let phase = 0;
+    function frame() {
+      ctx.clearRect(0, 0, SIZE, SIZE);
+      for (let r = 0; r < GRID; r++) {
+        for (let c = 0; c < GRID; c++) {
+          const idx = (Math.floor(phase) + r + c) % COLORS.length;
+          const x = c * (CELL + GAP), y = r * (CELL + GAP);
+          ctx.fillStyle = COLORS[idx];
+          roundRect(x, y, CELL, CELL, RADIUS); ctx.fill();
+        }
+      }
+      phase += 0.06;
+      winAnimFrame = requestAnimationFrame(frame);
+    }
+    winAnimFrame = requestAnimationFrame(frame);
+  }
+
+  function pickColor(color) {
+    if (gameOver || color === grid[0][0]) return;
+
+    // Swatch spring-pulse
+    const swatches = elSwatches.querySelectorAll('.swatch');
+    const si = COLORS.indexOf(color);
+    if (si !== -1) {
+      swatches[si].style.transform = 'scale(1.25)';
+      setTimeout(() => { swatches[si].style.transform = ''; }, 150);
+    }
+
+    const prevGrid   = grid.map(r => [...r]);
+    const oldFlooded = new Set(flooded);
+
+    applyColor(color);
+    moves++;
+
+    const newCells = [...flooded].filter(id => !oldFlooded.has(id));
+
+    refreshUI();
+    cancelAnimationFrame(animFrame);
+
+    if (flooded.size === GRID * GRID) {
+      gameOver = true;
+      elMsg.textContent = 'You win!';
+      elMsg.className   = 'message win';
+      animateFlood(prevGrid, newCells, () => {
+        cancelAnimationFrame(winAnimFrame);
+        runWinShimmer();
+      });
+    } else if (moves >= maxMoves) {
+      gameOver = true;
+      elMsg.textContent = 'Out of moves!';
+      elMsg.className   = 'message loss';
+      animateFlood(prevGrid, newCells, () => {
+        canvas.classList.add('canvas-shake');
+        canvas.addEventListener('animationend', () => canvas.classList.remove('canvas-shake'), { once: true });
+      });
+    } else {
+      animateFlood(prevGrid, newCells, null);
+      const movesLeft = maxMoves - moves;
+      if (movesLeft <= 5) {
+        elCounter.classList.remove('tension-pulse');
+        void elCounter.offsetWidth; // force reflow to restart animation
+        elCounter.classList.add('tension-pulse');
+      }
+    }
+  }
+
+  function refreshUI() {
+    const movesLeft = maxMoves - moves;
+    elCounter.textContent = `Moves: ${moves} / ${maxMoves}`;
+    elCounter.style.color = (movesLeft <= 5 && !gameOver) ? 'var(--peach)' : '';
+    elBadge.textContent   = DIFFS[diff].label;
+    const current = grid[0][0];
+    elSwatches.querySelectorAll('.swatch').forEach((s, i) => {
+      s.classList.toggle('active', COLORS[i] === current);
+    });
+  }
+
+  function newGame() {
+    cancelAnimationFrame(animFrame);
+    cancelAnimationFrame(winAnimFrame);
+    animFrame = null; winAnimFrame = null;
+    grid     = buildGrid();
+    flooded  = computeFlooded();
+    moves    = 0;
+    maxMoves = DIFFS[diff].moves;
+    gameOver = false;
+    elMsg.textContent     = '';
+    elMsg.className       = 'message';
+    elCounter.style.color = '';
+    elCounter.classList.remove('tension-pulse');
+    refreshUI();
+    draw();
+  }
+
+  document.querySelectorAll('.diff-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.dataset.diff === diff) return;
+      diff = btn.dataset.diff;
+      document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      cancelAnimationFrame(animFrame);
+      cancelAnimationFrame(winAnimFrame);
+      canvas.style.opacity = '0';
+      setTimeout(() => { newGame(); canvas.style.opacity = '1'; }, 200);
+    });
+  });
+
+  document.getElementById('newGameBtn').addEventListener('click', newGame);
+
+  newGame();
+</script>
+</body>
+</html>
