@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vagoon Gadupiti's Color Flood</title>
+  <title>Vagoon Gadupiti's Color Flood — The Official Site</title>
   <style>
     :root {
       --bg: #1a1a2e;
@@ -12,13 +12,12 @@
       --green: #a6e3a1;
       --yellow: #f9e2af;
       --peach: #f38ba8;
-      --orange: #FF9933;
       --text: #cdd6f4;
       --surface: #313244;
       --surface2: #45475a;
-      --india-saffron: #FF9933;
+      --saffron: #FF9933;
       --india-green: #138808;
-      --india-white: #f5f5f5;
+      --india-white: #f0f0f0;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,65 +30,175 @@
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      padding: 24px 16px 48px;
+      padding: 24px 16px 60px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      margin-bottom: 20px;
+      max-width: 620px;
+      width: 100%;
+    }
+
+    .avatar {
+      font-size: 4.5rem;
+      line-height: 1;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 0 18px rgba(255,153,51,0.45));
     }
 
     h1 {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 900;
       letter-spacing: -1px;
-      background: linear-gradient(90deg, var(--india-saffron), var(--india-white), var(--india-green));
+      background: linear-gradient(90deg, var(--saffron) 0%, var(--india-white) 50%, var(--india-green) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 4px;
-      text-align: center;
     }
 
-    .subtitle {
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: var(--india-saffron);
+    .tagline {
+      font-size: 0.82rem;
+      color: var(--saffron);
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin-bottom: 14px;
+    }
+
+    /* ── Stat bar ── */
+    .stat-bar {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
       margin-bottom: 18px;
-      text-align: center;
-      letter-spacing: 0.5px;
-      opacity: 0.85;
     }
 
-    .bio-card {
+    .stat {
       background: var(--surface);
       border: 1px solid var(--surface2);
-      border-left: 3px solid var(--india-saffron);
-      border-radius: 10px;
-      padding: 12px 18px;
-      max-width: 580px;
-      margin-bottom: 20px;
-      font-size: 0.82rem;
-      line-height: 1.6;
-      color: var(--text);
-      text-align: center;
-    }
-
-    .bio-card strong {
-      color: var(--india-saffron);
-    }
-
-    footer {
-      margin-top: 28px;
+      border-radius: 8px;
+      padding: 6px 14px;
       font-size: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      min-width: 80px;
+    }
+
+    .stat-num {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--saffron);
+    }
+
+    .stat-label {
       color: var(--surface2);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    /* ── Bio / Story ── */
+    .section-heading {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--saffron);
+      margin-bottom: 8px;
       text-align: center;
     }
 
-    footer span {
-      color: var(--india-green);
-      font-weight: 700;
+    .story-card {
+      background: var(--surface);
+      border: 1px solid var(--surface2);
+      border-left: 3px solid var(--saffron);
+      border-radius: 12px;
+      padding: 16px 20px;
+      max-width: 620px;
+      width: 100%;
+      margin-bottom: 14px;
+      font-size: 0.83rem;
+      line-height: 1.7;
     }
 
+    .story-card p { margin-bottom: 10px; }
+    .story-card p:last-child { margin-bottom: 0; }
+
+    .story-card .chapter {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--saffron);
+      margin-bottom: 4px;
+    }
+
+    .story-card em { color: var(--saffron); font-style: normal; font-weight: 700; }
+
+    /* ── Trivia ── */
+    .trivia-box {
+      background: linear-gradient(135deg, #1e1b4b 0%, #1a1a2e 100%);
+      border: 1px solid var(--saffron);
+      border-radius: 12px;
+      padding: 14px 20px;
+      max-width: 620px;
+      width: 100%;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .trivia-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .trivia-label {
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--saffron);
+      margin-bottom: 4px;
+    }
+
+    #triviaText {
+      font-size: 0.83rem;
+      line-height: 1.6;
+      color: var(--india-white);
+      transition: opacity 0.3s;
+    }
+
+    /* ── Quote ── */
+    .vagoon-quote {
+      max-width: 620px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.82rem;
+      font-style: italic;
+      color: var(--surface2);
+      margin-bottom: 20px;
+      padding: 0 20px;
+    }
+
+    .vagoon-quote::before { content: '"'; color: var(--saffron); font-size: 1.2rem; font-style: normal; }
+    .vagoon-quote::after  { content: '"'; color: var(--saffron); font-size: 1.2rem; font-style: normal; }
+
+    /* ── Difficulty ── */
     .diff-row {
       display: flex;
       gap: 10px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     .diff-btn {
@@ -105,14 +214,15 @@
       transition: border-color 0.15s, background 0.15s, color 0.15s;
     }
 
-    .diff-btn:hover { border-color: var(--india-saffron); }
+    .diff-btn:hover { border-color: var(--saffron); }
 
     .diff-btn.active {
-      border-color: var(--india-saffron);
-      background: var(--india-saffron);
+      border-color: var(--saffron);
+      background: var(--saffron);
       color: var(--bg);
     }
 
+    /* ── Info row ── */
     .info-row {
       display: flex;
       align-items: center;
@@ -130,16 +240,19 @@
       font-weight: 700;
       letter-spacing: 0.8px;
       text-transform: uppercase;
-      color: var(--india-saffron);
+      color: var(--saffron);
     }
 
+    /* ── Canvas ── */
     canvas {
       display: block;
       border-radius: 10px;
       margin-bottom: 16px;
       transition: opacity 0.2s;
+      box-shadow: 0 0 30px rgba(255,153,51,0.15);
     }
 
+    /* ── Swatches ── */
     .swatches {
       display: flex;
       gap: 10px;
@@ -161,32 +274,136 @@
       transform: scale(1.1);
     }
 
+    /* ── Message ── */
     .message {
       font-size: 1.05rem;
       font-weight: 700;
       min-height: 1.6rem;
+      margin-bottom: 8px;
+      text-align: center;
+      max-width: 400px;
+    }
+
+    .sub-message {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--surface2);
+      min-height: 1.2rem;
       margin-bottom: 14px;
       text-align: center;
     }
 
-    .message.win  { color: var(--green); }
+    .message.win  { color: var(--india-green); }
     .message.loss { color: var(--peach); }
 
+    /* ── Buttons ── */
     .new-game-btn {
       padding: 10px 28px;
       border-radius: 10px;
       border: none;
-      background: var(--india-saffron);
+      background: var(--saffron);
       color: var(--bg);
       font-family: inherit;
       font-size: 0.92rem;
       font-weight: 800;
       cursor: pointer;
       transition: opacity 0.15s, transform 0.1s;
+      margin-bottom: 28px;
     }
 
     .new-game-btn:hover { opacity: 0.87; transform: scale(1.03); }
 
+    /* ── Timeline ── */
+    .timeline {
+      max-width: 620px;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 16px;
+      align-items: flex-start;
+    }
+
+    .tl-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--saffron);
+      color: var(--bg);
+      font-size: 0.75rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .tl-content {
+      background: var(--surface);
+      border: 1px solid var(--surface2);
+      border-radius: 10px;
+      padding: 12px 16px;
+      flex: 1;
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+
+    .tl-year {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--saffron);
+      margin-bottom: 3px;
+    }
+
+    /* ── Hall of fame ── */
+    .hof {
+      max-width: 620px;
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--surface2);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+    }
+
+    .hof-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--surface2);
+      font-size: 0.82rem;
+    }
+
+    .hof-row:last-child { border-bottom: none; }
+
+    .hof-rank { color: var(--saffron); font-weight: 900; width: 24px; }
+    .hof-name { font-weight: 700; flex: 1; padding: 0 10px; }
+    .hof-score { color: var(--india-green); font-weight: 800; }
+    .hof-note { font-size: 0.7rem; color: var(--surface2); padding-left: 8px; }
+
+    /* ── Footer ── */
+    footer {
+      max-width: 620px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--surface2);
+      border-top: 1px solid var(--surface2);
+      padding-top: 16px;
+      line-height: 1.8;
+    }
+
+    footer .footer-name { color: var(--saffron); font-weight: 700; }
+    footer .footer-flag { font-size: 1rem; }
+
+    /* ── Animations ── */
     @keyframes shake {
       0%,100% { transform: translateX(0) }
       15%     { transform: translateX(-8px) }
@@ -203,23 +420,113 @@
       50%     { transform: scale(1.18) }
     }
     .tension-pulse { animation: tension-pulse 0.25s ease-in-out; }
+
+    @keyframes trivia-fade {
+      0%   { opacity: 0; transform: translateY(4px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .trivia-animate { animation: trivia-fade 0.4s ease forwards; }
+
+    /* ── Divider ── */
+    .divider {
+      width: 100%;
+      max-width: 620px;
+      border: none;
+      border-top: 1px solid var(--surface2);
+      margin: 20px 0;
+    }
   </style>
 </head>
 <body>
 
-<h1>Vagoon Gadupiti's Color Flood</h1>
-<p class="subtitle">🇮🇳 A game by the legend himself</p>
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="avatar">🇮🇳</div>
+  <h1>Vagoon Gadupiti</h1>
+  <p class="tagline">Hyderabad's Greatest Color Theorist &amp; The Man Behind The Grid</p>
 
-<div class="bio-card">
-  <strong>Vagoon Gadupiti</strong> — proud Indian man, color enthusiast, and the mastermind behind this game.
-  Flood the entire grid with one color before your moves run out.
-  Can you match Vagoon's legendary focus?
+  <div class="stat-bar">
+    <div class="stat">
+      <span class="stat-num">34</span>
+      <span class="stat-label">Years Old</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">14</span>
+      <span class="stat-label">Best Moves (Hard)</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">∞</span>
+      <span class="stat-label">Biryanis Eaten</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">0</span>
+      <span class="stat-label">Times Lost (Official)</span>
+    </div>
+  </div>
 </div>
+
+<!-- ══ ORIGIN STORY ══ -->
+<p class="section-heading">📖 The Legend of Vagoon Gadupiti</p>
+<div class="story-card">
+  <p class="chapter">Chapter I — Origin</p>
+  <p>
+    In the winter of 2019, inside a glass-walled conference room in Hyderabad, Telangana, a mandatory four-hour "synergy alignment" meeting was underway. Everyone was present. Nobody was listening.
+    In the back row sat <em>Vagoon Gadupiti</em>, Senior Software Engineer, color enthusiast, and — as of that afternoon — the accidental inventor of the world's greatest grid-flooding puzzle game.
+  </p>
+  <p>
+    "I just started drawing colored squares on my notepad," Vagoon later recalled. "Then I thought, what if you could flood-fill the whole thing? By the time the meeting ended, I had the rules, the algorithm, and a strong opinion about which six colors to use."
+    He filed no patents. He told no one. He simply built it — and thus, the legend began.
+  </p>
+</div>
+
+<div class="story-card">
+  <p class="chapter">Chapter II — The Rivalry</p>
+  <p>
+    For months, Vagoon played alone, quietly perfecting his craft. Then he made the mistake of showing the game to <em>Pradeep Naidu</em>, his colleague and self-declared "puzzle guy."
+    Three days later, Pradeep beat Vagoon's Hard mode record by two moves.
+  </p>
+  <p>
+    Vagoon did not speak to Pradeep for eleven days. He then spent those eleven days optimizing his strategy.
+    He reclaimed the record. Pradeep disputes the score to this day. Vagoon does not acknowledge the dispute.
+    "Pradeep cheated," Vagoon says, calmly. "He used Easy mode psychology on a Hard mode grid. That is not how Vagoon plays."
+  </p>
+</div>
+
+<div class="story-card">
+  <p class="chapter">Chapter III — The Philosophy</p>
+  <p>
+    Vagoon's approach to the game mirrors his approach to life: deliberate, patient, and absolutely convinced that saffron is the correct color to start with.
+    "A good flood-fill is like a good biryani," he once explained to his cousin Suresh at a family function.
+    "You cannot rush the dum. You cannot rush the flood. You commit to the color, and you trust the process."
+  </p>
+  <p>
+    His mother, Lakshmi Gadupiti, remains supportive but confused. "It is that color block thing on his phone," she says proudly. "He is very good at it."
+    She is not wrong.
+  </p>
+</div>
+
+<!-- ══ TRIVIA ══ -->
+<hr class="divider">
+<p class="section-heading">🧠 Did You Know? (Vagoon Edition)</p>
+<div class="trivia-box">
+  <div class="trivia-icon">💡</div>
+  <div>
+    <div class="trivia-label">Vagoon Fact</div>
+    <div id="triviaText">Loading Vagoon wisdom...</div>
+  </div>
+</div>
+
+<p class="vagoon-quote" id="vagoonQuote">Flood first. Ask questions later.</p>
+
+<hr class="divider">
+
+<!-- ══ GAME ══ -->
+<p class="section-heading">🎮 Play Vagoon's Game</p>
 
 <div class="diff-row">
   <button class="diff-btn" data-diff="easy">Easy (28)</button>
   <button class="diff-btn active" data-diff="medium">Medium (25)</button>
-  <button class="diff-btn" data-diff="hard">Hard (24)</button>
+  <button class="diff-btn" data-diff="hard">Hard (24) — Vagoon Mode</button>
 </div>
 
 <div class="info-row">
@@ -232,12 +539,169 @@
 <div class="swatches" id="swatches"></div>
 
 <div class="message" id="message"></div>
+<div class="sub-message" id="subMessage"></div>
 
-<button class="new-game-btn" id="newGameBtn">New Game</button>
+<button class="new-game-btn" id="newGameBtn">New Game (Ask Vagoon to Reset)</button>
 
-<footer>Made with love by <span>Vagoon Gadupiti</span> &mdash; India's finest color flooder</footer>
+<hr class="divider">
+
+<!-- ══ TIMELINE ══ -->
+<p class="section-heading">📅 The Vagoon Gadupiti Timeline</p>
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="tl-dot">🍼</div>
+    <div class="tl-content">
+      <div class="tl-year">1991 — Birth</div>
+      Vagoon Gadupiti is born in Hyderabad, Telangana. Local astrologers predict greatness. They were referring to something else, but Vagoon has claimed the prophecy for himself.
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="tl-dot">🎓</div>
+    <div class="tl-content">
+      <div class="tl-year">2013 — Engineering Degree</div>
+      Vagoon graduates with a Computer Science degree. His final-year project involved graph algorithms. His professor gave him a B+. Vagoon believes it should have been an A. The professor is no longer contactable.
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="tl-dot">💼</div>
+    <div class="tl-content">
+      <div class="tl-year">2015 — First Job</div>
+      Vagoon joins a tech company as a Junior Software Engineer. Within six months he is already Senior in his own mind. Official promotion follows two years later.
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="tl-dot">🎨</div>
+    <div class="tl-content">
+      <div class="tl-year">2019 — The Invention</div>
+      During a four-hour synergy meeting, Vagoon invents Color Flood. He does not tell his manager. The game is immediately more productive than the meeting.
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="tl-dot">🔥</div>
+    <div class="tl-content">
+      <div class="tl-year">2020 — The Pradeep Incident</div>
+      Pradeep Naidu beats Vagoon's Hard mode record. Vagoon enters a period of focused silence. He emerges eleven days later with a new strategy and a refreshed sense of purpose.
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="tl-dot">🌐</div>
+    <div class="tl-content">
+      <div class="tl-year">Today — Global Domination</div>
+      Color Flood is now a website. The world is not ready. Vagoon is.
+    </div>
+  </div>
+</div>
+
+<!-- ══ HALL OF FAME ══ -->
+<p class="section-heading">🏆 Vagoon's All-Time Leaderboard</p>
+<div class="hof">
+  <div class="hof-row">
+    <span class="hof-rank">🥇</span>
+    <span class="hof-name">Vagoon Gadupiti</span>
+    <span class="hof-score">14 moves</span>
+    <span class="hof-note">Hard Mode. Verified by Vagoon.</span>
+  </div>
+  <div class="hof-row">
+    <span class="hof-rank">🥈</span>
+    <span class="hof-name">Vagoon Gadupiti</span>
+    <span class="hof-score">16 moves</span>
+    <span class="hof-note">Second attempt. Still Vagoon.</span>
+  </div>
+  <div class="hof-row">
+    <span class="hof-rank">🥉</span>
+    <span class="hof-name">Pradeep Naidu</span>
+    <span class="hof-score">16 moves</span>
+    <span class="hof-note">Disputed. Vagoon says he cheated.</span>
+  </div>
+  <div class="hof-row">
+    <span class="hof-rank">4</span>
+    <span class="hof-name">Ravi Krishnamurthy</span>
+    <span class="hof-score">19 moves</span>
+    <span class="hof-note">Vagoon's best friend. Vagoon is proud.</span>
+  </div>
+  <div class="hof-row">
+    <span class="hof-rank">5</span>
+    <span class="hof-name">Lakshmi Gadupiti</span>
+    <span class="hof-score">47 moves</span>
+    <span class="hof-note">Vagoon's mother. Playing Medium. Heroic effort.</span>
+  </div>
+  <div class="hof-row">
+    <span class="hof-rank">6</span>
+    <span class="hof-name">You</span>
+    <span class="hof-score">???</span>
+    <span class="hof-note">Vagoon is watching. No pressure.</span>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div>
+    <span class="footer-flag">🇮🇳</span>
+    Designed, invented, and spiritually owned by <span class="footer-name">Vagoon Gadupiti</span> of Hyderabad, Telangana, India.
+    <span class="footer-flag">🇮🇳</span>
+  </div>
+  <div style="margin-top:6px;">
+    "If you can flood the grid, you can flood the world." — <em>Vagoon Gadupiti, probably</em>
+  </div>
+  <div style="margin-top:6px; font-size:0.68rem;">
+    Pradeep Naidu's score is still disputed. It always will be.
+  </div>
+</footer>
 
 <script>
+  // ── Vagoon's trivia ──
+  const TRIVIA = [
+    "Vagoon once solved Hard mode in 14 moves. There were no witnesses. Vagoon does not require witnesses.",
+    "Vagoon invented this game during a mandatory four-hour 'synergy alignment' meeting. The meeting accomplished nothing else.",
+    "Vagoon's favorite color is saffron. He has strong opinions about this and will share them unprompted.",
+    "Vagoon's nemesis, Pradeep Naidu, once beat his Hard mode record by 2 moves. Vagoon has not forgotten. He never will.",
+    "Vagoon's mother, Lakshmi, calls this game 'that color block thing.' She is proud. She does not know what a flood-fill is.",
+    "Vagoon codes with three monitors. None of them officially display this game during work hours.",
+    "Vagoon once ate Hyderabadi dum biryani for 23 consecutive days. He described it as 'flavor research.' His doctor described it as 'concerning.'",
+    "Vagoon's startup pitch: 'Duolingo, but for color theory.' He has been looking for investors since 2021.",
+    "Vagoon once explained the flood-fill algorithm to his cousin Suresh at a family wedding. He was not invited to the next wedding.",
+    "Vagoon's spirit animal is a peacock — colorful, dramatic, and profoundly Indian.",
+    "Vagoon refuses to play Easy mode. 'Easy mode,' he says, 'is for people who have not yet met Vagoon.'",
+    "Vagoon's life goal: get this game played on the International Space Station. 'Colors in space,' he says, nodding slowly. No one asks follow-up questions.",
+    "Vagoon once stayed up 36 hours trying to prove his flood-fill algorithm was already optimal. It already was. He considers this a victory.",
+    "Vagoon's best friend, Ravi Krishnamurthy, plays this game every day. He has never beaten Vagoon. He claims this is fine.",
+    "When asked about his greatest achievement, Vagoon points at this game. His wife points at their children. Vagoon does not disagree. He does, however, change the subject.",
+    "Vagoon believes the six colors in this game represent the six pillars of his philosophy: passion, calm, growth, warmth, love, and wisdom. He invented this philosophy after choosing the colors.",
+    "Vagoon's ringtone is the win shimmer animation, hummed by himself and recorded on a Wednesday evening.",
+    "Vagoon has never once selected Easy mode in front of another person. He has no opinion on what he does alone.",
+    "In 2022, Vagoon briefly considered adding a 7th color. He did not. 'Six is correct,' he said. 'Six has always been correct.'",
+  ];
+
+  const QUOTES = [
+    "Flood first. Ask questions later.",
+    "A good flood-fill is like a good biryani. You cannot rush either.",
+    "Six colors. Infinite strategies. One Vagoon.",
+    "Pradeep got lucky. I got better.",
+    "The grid does not lie. Only Pradeep lies.",
+    "Every move is a statement. Make yours count.",
+    "Hard mode is the only mode. The others are for practice.",
+    "I did not choose the grid. The grid chose me.",
+  ];
+
+  const WIN_MESSAGES = [
+    { main: "Vagoon weeps a single tear of pride. 🇮🇳", sub: "The Gadupiti bloodline is honored." },
+    { main: "The Gadupiti Method works! ✨", sub: "Vagoon claims partial credit. You cannot stop him." },
+    { main: "Outstanding! Even Pradeep is impressed.", sub: "(He isn't. But Vagoon says he is.)" },
+    { main: "Vagoon sheds a tear of joy. 🥲", sub: "He's not crying. You're crying." },
+    { main: "You flood like Vagoon himself! 🎉", sub: "This is the highest compliment available." },
+    { main: "The grid is yours. 🏆", sub: "Vagoon would nod slowly and say nothing. That means approval." },
+  ];
+
+  const LOSS_MESSAGES = [
+    { main: "Out of moves.", sub: "Vagoon believes in you. He just can't show it right now." },
+    { main: "The grid holds. For now.", sub: "Even Vagoon loses sometimes. (This is a lie. But still.)" },
+    { main: "Not today.", sub: "'Reset. Refocus. Reflood.' — Vagoon Gadupiti" },
+    { main: "Pradeep would have won.", sub: "Are you going to let that stand?" },
+    { main: "The colors resist.", sub: "Vagoon's mother says: 'Try again, beta.'" },
+    { main: "Out of moves.", sub: "Vagoon has reviewed your performance. He is taking notes." },
+  ];
+
+  // ── Colors ──
   const COLORS = ['#FF9933','#138808','#89b4fa','#f9e2af','#f38ba8','#cba6f7'];
   const GRID   = 14;
   const CELL   = 40;
@@ -248,21 +712,26 @@
   const DIFFS = {
     easy:   { moves: 28, label: 'Easy'   },
     medium: { moves: 25, label: 'Medium' },
-    hard:   { moves: 24, label: 'Hard'   },
+    hard:   { moves: 24, label: 'Hard — Vagoon Mode' },
   };
 
   let grid, flooded, moves, maxMoves, diff = 'medium', gameOver;
   let animFrame = null, winAnimFrame = null;
+  let triviaIndex = Math.floor(Math.random() * TRIVIA.length);
+  let quoteIndex  = Math.floor(Math.random() * QUOTES.length);
 
-  const canvas  = document.getElementById('canvas');
-  const ctx     = canvas.getContext('2d');
-  canvas.width  = SIZE;
-  canvas.height = SIZE;
+  const canvas     = document.getElementById('canvas');
+  const ctx        = canvas.getContext('2d');
+  canvas.width     = SIZE;
+  canvas.height    = SIZE;
 
-  const elCounter  = document.getElementById('moveCounter');
-  const elBadge    = document.getElementById('modeBadge');
-  const elMsg      = document.getElementById('message');
-  const elSwatches = document.getElementById('swatches');
+  const elCounter    = document.getElementById('moveCounter');
+  const elBadge      = document.getElementById('modeBadge');
+  const elMsg        = document.getElementById('message');
+  const elSubMsg     = document.getElementById('subMessage');
+  const elSwatches   = document.getElementById('swatches');
+  const elTrivia     = document.getElementById('triviaText');
+  const elQuote      = document.getElementById('vagoonQuote');
 
   COLORS.forEach(color => {
     const s = document.createElement('button');
@@ -271,6 +740,17 @@
     s.addEventListener('click', () => pickColor(color));
     elSwatches.appendChild(s);
   });
+
+  function showTrivia() {
+    triviaIndex = (triviaIndex + 1) % TRIVIA.length;
+    elTrivia.classList.remove('trivia-animate');
+    void elTrivia.offsetWidth;
+    elTrivia.textContent = TRIVIA[triviaIndex];
+    elTrivia.classList.add('trivia-animate');
+
+    quoteIndex = (quoteIndex + 1) % QUOTES.length;
+    elQuote.textContent = QUOTES[quoteIndex];
+  }
 
   function encode(r, c) { return r * GRID + c; }
   function randColor() { return COLORS[Math.floor(Math.random() * COLORS.length)]; }
@@ -354,7 +834,6 @@
     }
   }
 
-  // Newly captured cells fade in staggered by Manhattan distance from [0,0]
   function animateFlood(prevGrid, newCells, onComplete) {
     if (newCells.length === 0) { draw(); if (onComplete) onComplete(); return; }
     const newSet = new Set(newCells);
@@ -408,7 +887,6 @@
     animFrame = requestAnimationFrame(frame);
   }
 
-  // Rainbow shimmer cycling palette colors diagonally
   function runWinShimmer() {
     let phase = 0;
     function frame() {
@@ -430,7 +908,6 @@
   function pickColor(color) {
     if (gameOver || color === grid[0][0]) return;
 
-    // Swatch spring-pulse
     const swatches = elSwatches.querySelectorAll('.swatch');
     const si = COLORS.indexOf(color);
     if (si !== -1) {
@@ -440,27 +917,29 @@
 
     const prevGrid   = grid.map(r => [...r]);
     const oldFlooded = new Set(flooded);
-
     applyColor(color);
     moves++;
 
     const newCells = [...flooded].filter(id => !oldFlooded.has(id));
-
     refreshUI();
     cancelAnimationFrame(animFrame);
 
     if (flooded.size === GRID * GRID) {
       gameOver = true;
-      elMsg.textContent = 'Vagoon wins! 🇮🇳';
-      elMsg.className   = 'message win';
+      const w = WIN_MESSAGES[Math.floor(Math.random() * WIN_MESSAGES.length)];
+      elMsg.textContent    = w.main;
+      elMsg.className      = 'message win';
+      elSubMsg.textContent = w.sub;
       animateFlood(prevGrid, newCells, () => {
         cancelAnimationFrame(winAnimFrame);
         runWinShimmer();
       });
     } else if (moves >= maxMoves) {
       gameOver = true;
-      elMsg.textContent = 'Out of moves!';
-      elMsg.className   = 'message loss';
+      const l = LOSS_MESSAGES[Math.floor(Math.random() * LOSS_MESSAGES.length)];
+      elMsg.textContent    = l.main;
+      elMsg.className      = 'message loss';
+      elSubMsg.textContent = l.sub;
       animateFlood(prevGrid, newCells, () => {
         canvas.classList.add('canvas-shake');
         canvas.addEventListener('animationend', () => canvas.classList.remove('canvas-shake'), { once: true });
@@ -470,7 +949,7 @@
       const movesLeft = maxMoves - moves;
       if (movesLeft <= 5) {
         elCounter.classList.remove('tension-pulse');
-        void elCounter.offsetWidth; // force reflow to restart animation
+        void elCounter.offsetWidth;
         elCounter.classList.add('tension-pulse');
       }
     }
@@ -498,10 +977,12 @@
     gameOver = false;
     elMsg.textContent     = '';
     elMsg.className       = 'message';
+    elSubMsg.textContent  = '';
     elCounter.style.color = '';
     elCounter.classList.remove('tension-pulse');
     refreshUI();
     draw();
+    showTrivia();
   }
 
   document.querySelectorAll('.diff-btn').forEach(btn => {
@@ -519,6 +1000,9 @@
 
   document.getElementById('newGameBtn').addEventListener('click', newGame);
 
+  // Init trivia and game
+  elTrivia.textContent = TRIVIA[triviaIndex];
+  elQuote.textContent  = QUOTES[quoteIndex];
   newGame();
 </script>
 </body>
